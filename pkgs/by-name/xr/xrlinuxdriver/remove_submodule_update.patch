@@ -1,0 +1,40 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0fe59c0..bac27fb 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -40,8 +40,6 @@ pkg_check_modules(JSONC REQUIRED json-c)
+ pkg_check_modules(CURL REQUIRED libcurl)
+ pkg_check_modules(LIBWAYLAND_CLIENT REQUIRED wayland-client)
+ 
+-execute_process(COMMAND git submodule update --init --recursive
+-                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+ add_subdirectory(modules/xrealInterfaceLibrary/interface_lib)
+ 
+ # Set the library directory based on architecture
+Submodule modules/xrealInterfaceLibrary contains modified content
+diff --git a/modules/xrealInterfaceLibrary/interface_lib/CMakeLists.txt b/modules/xrealInterfaceLibrary/interface_lib/CMakeLists.txt
+index 07aeace..c700b15 100644
+--- a/modules/xrealInterfaceLibrary/interface_lib/CMakeLists.txt
++++ b/modules/xrealInterfaceLibrary/interface_lib/CMakeLists.txt
+@@ -5,7 +5,6 @@ set(CMAKE_C_STANDARD 17)
+ 
+ find_package(json-c REQUIRED CONFIG)
+ 
+-add_subdirectory(modules/hidapi)
+ add_subdirectory(modules/Fusion/Fusion)
+ 
+ add_library(
+@@ -25,12 +24,11 @@ target_include_directories(xrealAirLibrary
+ 
+ target_include_directories(xrealAirLibrary
+ 		SYSTEM BEFORE PRIVATE 
+-		${CMAKE_CURRENT_SOURCE_DIR}/modules/hidapi
+ 		${CMAKE_CURRENT_SOURCE_DIR}/modules/Fusion
+ )
+ 
+ target_link_libraries(xrealAirLibrary
+-		PRIVATE hidapi::hidapi json-c::json-c Fusion m
++		PRIVATE json-c::json-c Fusion m libhidapi-hidraw.so.0
+ )
+ 
+ set(XREAL_AIR_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include PARENT_SCOPE)
