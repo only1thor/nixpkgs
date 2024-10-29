@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 9d55cec..073303b 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -55,4 +55,8 @@ target_include_directories(xrealAirLinuxDriver
+
+ target_link_libraries(xrealAirLinuxDriver
+ 		PRIVATE ${LIBEVDEV_LIBRARIES} nrealAirLibrary Threads::Threads m ${VITURE_LIB_NAME} ${LIBUSB_LIBRARY}
+ )
++
++install(TARGETS xrealAirLinuxDriver DESTINATION bin)
++
++install(TARGETS hidapi_hidraw DESTINATION lib)
